@@ -5,16 +5,21 @@
  */
 
 // Plugins
-import { registerPlugins } from '@/plugins'
+import { registerPlugins } from "@/plugins";
 
 // Components
-import App from './App.vue'
+import App from "./App.vue";
 
 // Composables
-import { createApp } from 'vue'
+import { createApp } from "vue";
+import store from "./store"; // Import your Vuex store
+import vuetify from "./plugins/vuetify"; // Import Vuetify instance
 
-const app = createApp(App)
+const app = createApp(App);
 
-registerPlugins(app)
+registerPlugins(app);
 
-app.mount('#app')
+// Use Vuex store and Vuetify
+app.use(store).use(vuetify);
+
+app.mount("#app");

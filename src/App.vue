@@ -1,13 +1,11 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
+      <Results />
     </v-main>
-
-    <AppFooter />
   </v-app>
 </template>
 
 <script setup>
-  //
+import Results from "@/components/Results.vue";
 </script>
