@@ -9,6 +9,7 @@ export default createStore({
     loading: false,
     error: null,
     data: [],
+    cache: {},
   },
   mutations: {
     setLoading(state, value) {
@@ -20,18 +21,35 @@ export default createStore({
     setData(state, data) {
       state.data = data;
     },
+    addToCache(state, { key, response }) {
+      state.cache[key] = response;
+    },
   },
   actions: {
-    async fetchData({ commit }, { type, url }) {
+    async fetchData({ commit, state }, { type, url }) {
+      const cacheKey = `${type}-${url}`;
+
       commit("setLoading", true);
       commit("setError", null);
+
+      if (state.cache[cacheKey]) {
+        commit("setData", state.cache[cacheKey]);
+        commit("setLoading", false);
+        return;
+      }
+
       try {
         const response = await axios.get(
-          `https://www.who-hosts-this.com/API/${type === "Hosting Data" ? "Host" : "Tech"}?key=${API_KEY}&url=${url}`,
+          `https://www.who-hosts-this.com/API/${
+            type === "Hosting Data" ? "Host" : "Tech"
+          }?key=${API_KEY}&url=${url}`,
         );
-        console.log(response.data.results);
         if (response.status === 200 && response.data.result.code === 200) {
           commit("setData", response.data.results);
+          commit("addToCache", {
+            key: cacheKey,
+            response: response.data.results,
+          });
         } else {
           commit(
             "setError",
