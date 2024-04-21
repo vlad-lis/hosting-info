@@ -1,7 +1,6 @@
 <template>
   <div>
     <Form></Form>
-    <v-divider></v-divider>
     <div v-if="loading" class="text-center mt-5">Loading...</div>
     <div v-else-if="error" class="text-center mt-5">{{ error }}</div>
     <v-container class="table-container" v-else>
@@ -30,6 +29,7 @@ export default {
 
 <style scoped>
 .table-container {
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;

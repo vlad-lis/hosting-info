@@ -24,6 +24,7 @@ export default createStore({
   actions: {
     async fetchData({ commit }, { type, url }) {
       commit("setLoading", true);
+      commit("setError", null);
       try {
         const response = await axios.get(
           `https://www.who-hosts-this.com/API/${type === "Hosting Data" ? "Host" : "Tech"}?key=${API_KEY}&url=${url}`,
@@ -34,7 +35,7 @@ export default createStore({
         } else {
           commit(
             "setError",
-            `${response.data.result.code} ${response.data.result.msg}`,
+            `Error ${response.data.result.code}: ${response.data.result.msg}`,
           );
         }
       } catch (error) {
