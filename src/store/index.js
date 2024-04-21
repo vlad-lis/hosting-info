@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import axios from "axios";
 
 const API_KEY =
-  "w466hhsn0zyxgabwp2wacbcdndyv4kkv4pmksi5uw7twernl3sd5ic5rtgisf21g7pl5sj";
+  "w8pmhthc8az3k0ay144ghvfzy8cyx8hbq7c1eptdxp5ur6aawuk2kvfdlyob5ggwbhghsg";
 
 export default createStore({
   state: {
