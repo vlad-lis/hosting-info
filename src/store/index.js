@@ -28,11 +28,14 @@ export default createStore({
         const response = await axios.get(
           `https://www.who-hosts-this.com/API/${type === "Hosting Data" ? "Host" : "Tech"}?key=${API_KEY}&url=${url}`,
         );
-        console.log(response.data);
-        if (response.status === 200) {
+        console.log(response.data.results);
+        if (response.status === 200 && response.data.result.code === 200) {
           commit("setData", response.data.results);
         } else {
-          commit("setError", "Error fetching data");
+          commit(
+            "setError",
+            `${response.data.result.code} ${response.data.result.msg}`,
+          );
         }
       } catch (error) {
         commit("setError", error.message);

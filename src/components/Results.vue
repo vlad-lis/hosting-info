@@ -2,11 +2,15 @@
   <div>
     <Form></Form>
     <v-divider></v-divider>
-    <div v-if="loading" class="text-center">Loading...</div>
-    <div v-else-if="error" class="text-center">{{ error }}</div>
-    <v-data-table v-else :headers="headers" :items="data" item-key="key"
-      ><template #bottom v-if="!showFooter"></template
-    ></v-data-table>
+    <div v-if="loading" class="text-center mt-5">Loading...</div>
+    <div v-else-if="error" class="text-center mt-5">{{ error }}</div>
+    <v-container class="table-container" v-else>
+      <v-row class="w-75" v-for="(value, key) in data[0]" :key="key">
+        <v-col>{{ key }}</v-col>
+        <v-col>{{ value }}</v-col>
+        <v-divider></v-divider>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
@@ -20,15 +24,15 @@ export default {
   },
   computed: {
     ...mapState(["loading", "error", "data"]),
-    headers() {
-      if (this.data.length > 0) {
-        return Object.keys(this.data[0]).map((key) => ({
-          text: key,
-          value: key,
-        }));
-      }
-      return [];
-    },
   },
 };
 </script>
+
+<style scoped>
+.table-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>

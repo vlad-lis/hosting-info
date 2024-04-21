@@ -3,7 +3,7 @@
     <v-select
       v-model="selectedType"
       :items="types"
-      label="Select Data Type"
+      label="Select Request Type"
     ></v-select>
     <v-text-field v-model="url" label="URL"></v-text-field>
     <v-btn type="submit" color="primary">Submit</v-btn>
